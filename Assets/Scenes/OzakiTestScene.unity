@@ -123,6 +123,24 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &218461363 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8497781324951406801, guid: 7eba6be202379d041bcfd4963c8e1486, type: 3}
+  m_PrefabInstance: {fileID: 6134077347516797559}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &218461365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 218461363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab58e60a2ed98d45bd4221d1a86f19b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _transitionIn: {fileID: 2100000, guid: d2b9f91ba002e4e40ae9377bb479c81b, type: 2}
 --- !u!1 &220884750
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,6 +297,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 652928137159193389, guid: 7eba6be202379d041bcfd4963c8e1486, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 640
+      objectReference: {fileID: 0}
+    - target: {fileID: 652928137159193389, guid: 7eba6be202379d041bcfd4963c8e1486, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 480
+      objectReference: {fileID: 0}
+    - target: {fileID: 652928137159193389, guid: 7eba6be202379d041bcfd4963c8e1486, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 652928137159193389, guid: 7eba6be202379d041bcfd4963c8e1486, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2865002493594795037, guid: 7eba6be202379d041bcfd4963c8e1486, type: 3}
       propertyPath: m_Name
       value: FadeCanvas
@@ -366,6 +400,18 @@ PrefabInstance:
     - target: {fileID: 6434278569076331749, guid: 7eba6be202379d041bcfd4963c8e1486, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8143222739169607353, guid: 7eba6be202379d041bcfd4963c8e1486, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0cd7f0560ae45b1498f6d6a136733b8a, type: 3}
+    - target: {fileID: 8143222739169607353, guid: 7eba6be202379d041bcfd4963c8e1486, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: d2b9f91ba002e4e40ae9377bb479c81b, type: 2}
+    - target: {fileID: 8143222739169607353, guid: 7eba6be202379d041bcfd4963c8e1486, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7eba6be202379d041bcfd4963c8e1486, type: 3}
