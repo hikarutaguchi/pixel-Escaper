@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class Transition : MonoBehaviour
+public class TransitionBrackOut : MonoBehaviour
 {
     [SerializeField]
     private Material _transitionIn;
