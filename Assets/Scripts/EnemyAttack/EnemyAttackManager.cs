@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class EnemyAttackManager : MonoBehaviour
 {
-    GameObject weapon;
+    List<GameObject> weapon = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
     {
@@ -20,24 +20,31 @@ public class EnemyAttackManager : MonoBehaviour
 
     public void CreateDagger()
     {
-        weapon = new GameObject("daggerImage");
-        weapon.transform.parent = GameObject.Find("Canvas").transform;
-        weapon.AddComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-        weapon.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
-        weapon.AddComponent<Image>().sprite = Resources.Load<Sprite>("dagger");
-        weapon.GetComponent<Image>().preserveAspect = true;
-        weapon.GetComponent<Image>().SetNativeSize();
-        weapon.AddComponent<Dagger>();
+        var daga = Resources.Load("Resources/WeaponAsset/dagger") as WeaponData;
+
+        var dagger = new GameObject("daggerImage");
+        dagger.transform.parent = GameObject.Find("Canvas").transform;
+        dagger.AddComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+        dagger.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+        dagger.AddComponent<Image>().sprite = Resources.Load<Sprite>("dagger");
+        dagger.GetComponent<Image>().preserveAspect = true;
+        dagger.GetComponent<Image>().SetNativeSize();
+        dagger.AddComponent<Dagger>();
+
+        weapon.Add(dagger);
     }
 
     public void ManagedUpdate()
     {
         if(weapon != null)
         {
-            var weaponTarget = weapon.GetComponent<EnemyAttackInterface>();
-            if (weaponTarget != null)
+            foreach(var data in weapon)
             {
-                weapon.GetComponent<EnemyAttackInterface>().WeaponUpdate(weapon);
+                var weaponTarget = data.GetComponent<EnemyAttackInterface>();
+                if (weaponTarget != null)
+                {
+                    data.GetComponent<EnemyAttackInterface>().WeaponUpdate(data);
+                }
             }
         }
     }
