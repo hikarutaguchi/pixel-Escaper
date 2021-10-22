@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyAttackManager : MonoBehaviour
 {
     GameObject weapon;
-    Dagger dagger;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,9 +20,14 @@ public class EnemyAttackManager : MonoBehaviour
 
     public void CreateDagger()
     {
-        dagger = new Dagger();
-        dagger.Init();
-        weapon = GameObject.Find("Canvas/daggerImage");
+        weapon = new GameObject("daggerImage");
+        weapon.transform.parent = GameObject.Find("Canvas").transform;
+        weapon.AddComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+        weapon.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+        weapon.AddComponent<Image>().sprite = Resources.Load<Sprite>("dagger");
+        weapon.GetComponent<Image>().preserveAspect = true;
+        weapon.GetComponent<Image>().SetNativeSize();
+        weapon.AddComponent<Dagger>();
     }
 
     public void ManagedUpdate()
@@ -32,7 +37,7 @@ public class EnemyAttackManager : MonoBehaviour
             var weaponTarget = weapon.GetComponent<EnemyAttackInterface>();
             if (weaponTarget != null)
             {
-                weapon.GetComponent<EnemyAttackInterface>().WeaponUpdate();
+                weapon.GetComponent<EnemyAttackInterface>().WeaponUpdate(weapon);
             }
         }
     }
