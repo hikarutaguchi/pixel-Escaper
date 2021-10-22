@@ -6,7 +6,9 @@ public enum SceneType
 {
     TitleScene,
     SelectScene,
-
+    GameOverScene,
+    GameClearScene,
+    GameScene,
 }
 
 [CreateAssetMenu(fileName = "NewScene", menuName = "SceneScript/Scene")]

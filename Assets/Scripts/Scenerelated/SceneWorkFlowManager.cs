@@ -10,11 +10,14 @@ using UnityEngine.SceneManagement;
 [CreateAssetMenu(fileName = "SceneManager", menuName = "SceneScript/SceneManager")]
 public class SceneWorkFlowManager : ScriptableObject
 {
-    public List<SceneParameter> Menus = new List<SceneParameter>();
+    public List<SceneParameter> _scenes = new List<SceneParameter>();
 
-    public void LoadScene(SceneType type)
+    public SceneType _type;
+
+    public void LoadScene()
     {
-        var menuScene = Menus.SingleOrDefault(p => p._sceneType == type);
+
+        var menuScene = _scenes.SingleOrDefault(p => p._sceneType == _type);
 
         Debug.Log("load:" + menuScene._sceneName);
 
@@ -24,9 +27,9 @@ public class SceneWorkFlowManager : ScriptableObject
         }
     }
 
-    public void UnLoadScene(SceneType type)
+    public void UnLoadScene()
     {
-        var menuScene = Menus.SingleOrDefault(p => p._sceneType == type);
+        var menuScene = _scenes.SingleOrDefault(p => p._sceneType == _type);
 
         Debug.Log("unpop:" + menuScene._sceneName);
 
