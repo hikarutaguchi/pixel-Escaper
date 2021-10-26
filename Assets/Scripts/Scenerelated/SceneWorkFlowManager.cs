@@ -12,12 +12,58 @@ public class SceneWorkFlowManager : ScriptableObject
 {
     public List<SceneParameter> _scenes = new List<SceneParameter>();
 
-    public SceneType _type;
-
-    public void LoadScene()
+    public void LoadGameScene()
     {
 
-        var menuScene = _scenes.SingleOrDefault(p => p._sceneType == _type);
+        var menuScene = _scenes.SingleOrDefault(p => p._sceneType == SceneType.GameScene);
+
+        Debug.Log("load:" + menuScene._sceneName);
+
+        if (menuScene != null)
+        {
+            SceneManager.LoadSceneAsync(menuScene._sceneName);
+        }
+    }
+    public void LoadGameOverScene()
+    {
+
+        var menuScene = _scenes.SingleOrDefault(p => p._sceneType == SceneType.GameOverScene);
+
+        Debug.Log("load:" + menuScene._sceneName);
+
+        if (menuScene != null)
+        {
+            SceneManager.LoadSceneAsync(menuScene._sceneName);
+        }
+    }
+    public void LoadGameClearScene()
+    {
+
+        var menuScene = _scenes.SingleOrDefault(p => p._sceneType == SceneType.GameClearScene);
+
+        Debug.Log("load:" + menuScene._sceneName);
+
+        if (menuScene != null)
+        {
+            SceneManager.LoadSceneAsync(menuScene._sceneName);
+        }
+    }
+    public void LoadTitleScene()
+    {
+
+        var menuScene = _scenes.SingleOrDefault(p => p._sceneType == SceneType.TitleScene);
+
+        Debug.Log("load:" + menuScene._sceneName);
+
+        if (menuScene != null)
+        {
+            SceneManager.LoadSceneAsync(menuScene._sceneName);
+        }
+    }
+    public void LoadSelectScene()
+    {
+
+        var menuScene = _scenes.SingleOrDefault(p => p._sceneType == SceneType.SelectScene);
 
         Debug.Log("load:" + menuScene._sceneName);
 
@@ -27,11 +73,59 @@ public class SceneWorkFlowManager : ScriptableObject
         }
     }
 
-    public void UnLoadScene()
+    public void UnLoadGameScene()
     {
-        var menuScene = _scenes.SingleOrDefault(p => p._sceneType == _type);
+        var menuScene = _scenes.SingleOrDefault(p => p._sceneType == SceneType.GameScene);
 
-        Debug.Log("unpop:" + menuScene._sceneName);
+        Debug.Log("unload:" + menuScene._sceneName);
+
+        if (menuScene != null)
+        {
+            SceneManager.UnloadSceneAsync(menuScene._sceneName, UnloadSceneOptions.None);
+        }
+    }
+    public void UnLoadGameOverScene()
+    {
+
+        var menuScene = _scenes.SingleOrDefault(p => p._sceneType == SceneType.GameOverScene);
+
+        Debug.Log("unload:" + menuScene._sceneName);
+
+        if (menuScene != null)
+        {
+            SceneManager.UnloadSceneAsync(menuScene._sceneName, UnloadSceneOptions.None);
+        }
+    }
+    public void UnLoadGameClearScene()
+    {
+
+        var menuScene = _scenes.SingleOrDefault(p => p._sceneType == SceneType.GameClearScene);
+
+        Debug.Log("unload:" + menuScene._sceneName);
+
+        if (menuScene != null)
+        {
+            SceneManager.UnloadSceneAsync(menuScene._sceneName, UnloadSceneOptions.None);
+        }
+    }
+    public void UnLoadTitleScene()
+    {
+
+        var menuScene = _scenes.SingleOrDefault(p => p._sceneType == SceneType.TitleScene);
+
+        Debug.Log("unload:" + menuScene._sceneName);
+
+        if (menuScene != null)
+        {
+            SceneManager.UnloadSceneAsync(menuScene._sceneName, UnloadSceneOptions.None);
+        }
+    }
+    public void UnLoadSelectScene()
+    {
+
+        var menuScene = _scenes.SingleOrDefault(p => p._sceneType == SceneType.SelectScene);
+
+        Debug.Log("unload:" + menuScene._sceneName);
 
         if (menuScene != null)
         {
