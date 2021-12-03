@@ -16,7 +16,7 @@ public enum SceneType
 public class SceneParameter : ScriptableObject
 {
     [Header("Scene Information")]
-    
+
     public string _sceneName;
     public string _memoText;
     public SceneType _sceneType;

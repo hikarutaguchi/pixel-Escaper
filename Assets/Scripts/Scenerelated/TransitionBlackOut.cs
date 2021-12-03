@@ -3,12 +3,12 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class TransitionBrackOut : MonoBehaviour
+public class TransitionBlackOut : MonoBehaviour
 {
     [SerializeField]
     private Material _transitionIn;
 
-    void Start()
+    void FadeOut()
     {
         StartCoroutine(BeginTransition());
     }
