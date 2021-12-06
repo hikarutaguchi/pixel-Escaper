@@ -6,39 +6,55 @@ using UnityEngine;
 public class EnemyAttackTrigger : MonoBehaviour
 {
     EnemyAttackManager manager;
+    int attackCnt = 0;
+    delegate bool RismAttack(int atkCnt);
+    RismAttack rismAttack;
+
     // Start is called before the first frame update
     void Start()
     {
         Music.Play("Square");
+        rismAttack = RismAttack2;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(rismAttack != null)
+        {
+            if (rismAttack(3))
+            {
+                rismAttack -= RismAttack2;
+            }
+        }
+    }
+
+    public bool RismAttack2(int atkCnt)
+    {
         if (Music.IsJustChangedAt(1, 0, 1))
         {
-            manager = GameObject.Find("GameObject").GetComponent<EnemyAttackManager>();
-            manager.CreateDagger();
+            CreateAttack();
         }
         if (Music.IsJustChangedAt(1, 2, 0))
         {
-            manager = GameObject.Find("GameObject").GetComponent<EnemyAttackManager>();
-            manager.CreateDagger();
+            CreateAttack();
         }
         if (Music.IsJustChangedAt(1, 2, 3))
         {
-            manager = GameObject.Find("GameObject").GetComponent<EnemyAttackManager>();
-            manager.CreateDagger();
+            CreateAttack();
         }
-        //if(Music.IsJustChangedBar())
-        //{
-        //    manager = GameObject.Find("GameObject").GetComponent<EnemyAttackManager>();
-        //    manager.CreateDagger();
-        //}
-        //if (Music.IsJustChangedBeat())
-        //{
-        //    manager = GameObject.Find("GameObject").GetComponent<EnemyAttackManager>();
-        //    manager.CreateDagger();
-        //}
+        if(atkCnt == attackCnt)
+        {
+            attackCnt = 0;
+            return true;
+        }
+        return false;
+    }
+
+    void CreateAttack()
+    {
+        manager = GameObject.Find("GameObject").GetComponent<EnemyAttackManager>();
+        manager.CreateDagger();
+        attackCnt++;
     }
 }
