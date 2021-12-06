@@ -15,15 +15,15 @@ public class dinotest : MonoBehaviour
     {
         var animation = GetComponent<Animator>();
 
-        if(Input.GetKey(KeyCode.A))
+        if(Input.GetKeyDown(KeyCode.A))
         {
             animation.SetTrigger("AttackFlag");
         }
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S))
         {
             animation.SetTrigger("WorkFlag");
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D))
         {
             animation.SetTrigger("HitFlag");
         }
