@@ -7,30 +7,32 @@ public class EnemyAttackTrigger : MonoBehaviour
 {
     EnemyAttackManager manager;
     int attackCnt = 0;
-    delegate bool RismAttack(int atkCnt);
-    RismAttack rismAttack;
-
+    delegate bool RismAttack();
+    List<RismAttack> attackList = new List<RismAttack>();
+    
     // Start is called before the first frame update
     void Start()
     {
         Music.Play("Square");
-        rismAttack = RismAttack2;
+        attackList.Add(ThreeBeatsAttack);
+        attackList.Add(FourBeatsAttack);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(rismAttack != null)
+        for(int i = 0; i < attackList.Count; ++i)
         {
-            if (rismAttack(3))
+            if(attackList[i]() == true)
             {
-                rismAttack -= RismAttack2;
+                attackList.RemoveAt(i);
             }
         }
     }
 
-    public bool RismAttack2(int atkCnt)
+    private bool ThreeBeatsAttack()
     {
+        int atkCnt = 3;
         if (Music.IsJustChangedAt(1, 0, 1))
         {
             CreateAttack();
@@ -51,7 +53,25 @@ public class EnemyAttackTrigger : MonoBehaviour
         return false;
     }
 
-    void CreateAttack()
+    private bool FourBeatsAttack()
+    {
+        int atkCnt = 4;
+        for(int i = 0; i < atkCnt; ++i)
+        {
+            if (Music.IsJustChangedAt(3, i, 1))
+            {
+                CreateAttack();
+            }
+        }
+        if (atkCnt == attackCnt)
+        {
+            attackCnt = 0;
+            return true;
+        }
+        return false;
+    }
+    
+    private void CreateAttack()
     {
         manager = GameObject.Find("GameObject").GetComponent<EnemyAttackManager>();
         manager.CreateDagger();
