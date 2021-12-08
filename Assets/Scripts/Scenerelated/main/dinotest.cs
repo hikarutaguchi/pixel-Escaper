@@ -15,7 +15,7 @@ public class dinotest : MonoBehaviour
     void Start()
     {
         var tilemap = tileMap.GetComponent<Tilemap>();
-        var position = new Vector3Int(1, -1, 0);
+        var position = new Vector3Int(-4, 0, 0);
         pos = tilemap.GetCellCenterLocal(position);
     }
 
