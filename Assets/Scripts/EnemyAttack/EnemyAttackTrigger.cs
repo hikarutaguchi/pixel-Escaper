@@ -14,8 +14,9 @@ public class EnemyAttackTrigger : MonoBehaviour
     void Start()
     {
         Music.Play("Square");
-        attackList.Add(ThreeBeatsAttack);
-        attackList.Add(FourBeatsAttack);
+        attackList.Add(OneBeatsAttack);
+        //attackList.Add(ThreeBeatsAttack);
+        //attackList.Add(FourBeatsAttack);
     }
 
     // Update is called once per frame
@@ -28,6 +29,21 @@ public class EnemyAttackTrigger : MonoBehaviour
                 attackList.RemoveAt(i);
             }
         }
+    }
+
+    private bool OneBeatsAttack()
+    {
+        int atkCnt = 1;
+        if (Music.IsJustChangedAt(1, 0, 1))
+        {
+            CreateAttack();
+        }
+        if (atkCnt == attackCnt)
+        {
+            attackCnt = 0;
+            return true;
+        }
+        return false;
     }
 
     private bool ThreeBeatsAttack()
@@ -75,6 +91,7 @@ public class EnemyAttackTrigger : MonoBehaviour
     {
         manager = GameObject.Find("GameObject").GetComponent<EnemyAttackManager>();
         manager.CreateDagger();
+        manager.CreateLaser();
         attackCnt++;
     }
 }

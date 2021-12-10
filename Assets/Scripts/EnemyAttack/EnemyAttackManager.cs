@@ -20,10 +20,7 @@ public class EnemyAttackManager : MonoBehaviour
 
     public void CreateDagger()
     {
-        var daga = Resources.Load("Resources/WeaponAsset/dagger") as WeaponData;
-
         var dagger = new GameObject("daggerImage");
-        dagger.layer = 20;
         dagger.transform.parent = GameObject.Find("Canvas").transform;
         dagger.AddComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         dagger.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
@@ -37,7 +34,17 @@ public class EnemyAttackManager : MonoBehaviour
 
     public void CreateLaser()
     {
-        
+        var laser = new GameObject("laserImage");
+        laser.transform.parent = GameObject.Find("Canvas").transform;
+        laser.AddComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+        laser.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+        laser.AddComponent<Image>().sprite = Resources.Load<Sprite>("laser");
+        laser.GetComponent<Image>().preserveAspect = true;
+        laser.GetComponent<Image>().SetNativeSize();
+        laser.AddComponent<Laser>();
+        laser.GetComponent<Laser>().Init();
+
+        weapon.Add(laser);
     }
 
     public void ManagedUpdate()
