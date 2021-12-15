@@ -9,7 +9,7 @@ public class Laser : MonoBehaviour, EnemyAttackInterface
 
     public void Init(GameObject weapon)
     {
-        weaponData = Resources.Load("WeaponAsset/Laser") as WeaponData;
+        weaponData = Resources.Load("WeaponAsset/LaserStatus") as WeaponData;
     }
 
     public void WeaponUpdate(GameObject weapon)

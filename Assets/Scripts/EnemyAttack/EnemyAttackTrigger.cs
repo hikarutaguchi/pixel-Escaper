@@ -52,15 +52,15 @@ public class EnemyAttackTrigger : MonoBehaviour
     private bool ThreeBeatsAttack(AttackType type)
     {
         int atkCnt = 3;
-        if (Music.IsJustChangedAt(1, 0, 1))
+        if (Music.IsJustChangedAt(1, 1, 1))
         {
             CreateAttack();
         }
-        if (Music.IsJustChangedAt(1, 2, 0))
+        if (Music.IsJustChangedAt(1, 3, 0))
         {
             CreateAttack();
         }
-        if (Music.IsJustChangedAt(1, 2, 3))
+        if (Music.IsJustChangedAt(1, 3, 3))
         {
             CreateAttack();
         }
