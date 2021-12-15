@@ -24,25 +24,27 @@ public class EnemyAttackManager : MonoBehaviour
         dagger.transform.parent = GameObject.Find("Canvas").transform;
         dagger.AddComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         dagger.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
-        dagger.AddComponent<Image>().sprite = Resources.Load<Sprite>("dagger");
+        dagger.AddComponent<Image>().sprite = Resources.Load<Sprite>("Weapon/dagger");
         dagger.GetComponent<Image>().preserveAspect = true;
         dagger.GetComponent<Image>().SetNativeSize();
         dagger.AddComponent<Dagger>();
+        dagger.GetComponent<Dagger>().Init(dagger);
 
         weapon.Add(dagger);
     }
 
-    public void CreateLaser()
+    public void CreateLaser(Vector3 pos)
     {
         var laser = new GameObject("laserImage");
         laser.transform.parent = GameObject.Find("Canvas").transform;
         laser.AddComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-        laser.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
-        laser.AddComponent<Image>().sprite = Resources.Load<Sprite>("laser");
+        laser.GetComponent<RectTransform>().localPosition = new Vector3(500, pos.y, 0);
+        laser.GetComponent<RectTransform>().localScale = new Vector3(5.0f, 0.1f, 1.0f);
+        laser.AddComponent<Image>().sprite = Resources.Load<Sprite>("Weapon/Laser");
         laser.GetComponent<Image>().preserveAspect = true;
         laser.GetComponent<Image>().SetNativeSize();
         laser.AddComponent<Laser>();
-        laser.GetComponent<Laser>().Init();
+        laser.GetComponent<Laser>().Init(laser);
 
         weapon.Add(laser);
     }

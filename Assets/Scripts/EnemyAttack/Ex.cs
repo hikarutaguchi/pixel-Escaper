@@ -13,8 +13,7 @@ public class Ex : MonoBehaviour
             DOTween
                 .To(value => OnRotate(value), 0, 1, 0.5f)
                 .SetEase(Ease.OutCubic)
-                .OnComplete(() => transform.localEulerAngles = new Vector3(0, 0, 0))
-            ;
+                .OnComplete(() => transform.localEulerAngles = new Vector3(0, 0, 0));
         }
         // ”‚É—ˆ‚½ƒtƒŒ[ƒ€‚Å true ‚É‚È‚é
         else if (Music.IsJustChangedBeat())
@@ -22,8 +21,7 @@ public class Ex : MonoBehaviour
             DOTween
                 .To(value => OnScale(value), 0, 1, 0.1f)
                 .SetEase(Ease.InQuad)
-                .SetLoops(2, LoopType.Yoyo)
-            ;
+                .SetLoops(2, LoopType.Yoyo);
         }
     }
 

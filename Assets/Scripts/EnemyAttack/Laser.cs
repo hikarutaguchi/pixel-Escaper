@@ -6,40 +6,14 @@ using UnityEngine.UI;
 public class Laser : MonoBehaviour, EnemyAttackInterface
 {
     WeaponData weaponData;
-    float sp = 0.01f;
-    float alfa;
-    Color color;
-    float red, green, blue;
 
-    
-    public void Init()
+    public void Init(GameObject weapon)
     {
-        
+        weaponData = Resources.Load("WeaponAsset/Laser") as WeaponData;
     }
 
     public void WeaponUpdate(GameObject weapon)
     {
-        color = weapon.GetComponent<Image>().color;
-        red = color.r;
-        green = color.g;
-        blue = color.b;
-        red -= 0.01f;
-        green -= 0.01f;
-        blue -= 0.01f;
-        weapon.GetComponent<Image>().color = new Color(red, green, blue, 1.0f);
-        //ColorChan();
-    }
-
-    void ColorChan()
-    {
-        alfa++;
-        var color = this.GetComponent<Image>().color;
-        red = color.r;
-        green = color.g;
-        blue = color.b;
-        red += 0.01f;
-        green += 0.01f;
-        blue += 0.01f;
-        color = new Color(red, green, blue, 1f);
+        weapon.transform.localPosition -= new Vector3(weaponData.speed, 0.0f, 0.0f);
     }
 }

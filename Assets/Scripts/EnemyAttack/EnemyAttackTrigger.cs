@@ -2,21 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyAttackTrigger : MonoBehaviour
 {
+    private enum AttackType
+    {
+        Dagger,
+        Laser,
+    }
+
     EnemyAttackManager manager;
     int attackCnt = 0;
-    delegate bool RismAttack();
+    delegate bool RismAttack(AttackType type);
     List<RismAttack> attackList = new List<RismAttack>();
+    int laserOffsetY = 0;
     
     // Start is called before the first frame update
     void Start()
     {
         Music.Play("Square");
         attackList.Add(OneBeatsAttack);
-        //attackList.Add(ThreeBeatsAttack);
-        //attackList.Add(FourBeatsAttack);
+        attackList.Add(ThreeBeatsAttack);
+        attackList.Add(FourBeatsAttack);
     }
 
     // Update is called once per frame
@@ -24,29 +32,24 @@ public class EnemyAttackTrigger : MonoBehaviour
     {
         for(int i = 0; i < attackList.Count; ++i)
         {
-            if(attackList[i]() == true)
+            if(attackList[i](AttackType.Laser) == true)
             {
                 attackList.RemoveAt(i);
             }
         }
     }
 
-    private bool OneBeatsAttack()
+    private bool OneBeatsAttack(AttackType type)
     {
         int atkCnt = 1;
         if (Music.IsJustChangedAt(1, 0, 1))
         {
             CreateAttack();
         }
-        if (atkCnt == attackCnt)
-        {
-            attackCnt = 0;
-            return true;
-        }
-        return false;
+        return isAttacked(atkCnt);
     }
 
-    private bool ThreeBeatsAttack()
+    private bool ThreeBeatsAttack(AttackType type)
     {
         int atkCnt = 3;
         if (Music.IsJustChangedAt(1, 0, 1))
@@ -61,15 +64,10 @@ public class EnemyAttackTrigger : MonoBehaviour
         {
             CreateAttack();
         }
-        if(atkCnt == attackCnt)
-        {
-            attackCnt = 0;
-            return true;
-        }
-        return false;
+        return isAttacked(atkCnt);
     }
 
-    private bool FourBeatsAttack()
+    private bool FourBeatsAttack(AttackType type)
     {
         int atkCnt = 4;
         for(int i = 0; i < atkCnt; ++i)
@@ -79,9 +77,15 @@ public class EnemyAttackTrigger : MonoBehaviour
                 CreateAttack();
             }
         }
+        return isAttacked(atkCnt);
+    }
+
+    private bool isAttacked(int atkCnt)
+    {
         if (atkCnt == attackCnt)
         {
             attackCnt = 0;
+            laserOffsetY = 0;
             return true;
         }
         return false;
@@ -90,8 +94,22 @@ public class EnemyAttackTrigger : MonoBehaviour
     private void CreateAttack()
     {
         manager = GameObject.Find("GameObject").GetComponent<EnemyAttackManager>();
-        manager.CreateDagger();
-        manager.CreateLaser();
+        //manager.CreateDagger();
+        CreateLaserGuid();
         attackCnt++;
+    }
+
+    public void CreateLaserGuid()
+    {
+        var laser = new GameObject("laserGuid");
+        laser.transform.parent = GameObject.Find("Canvas").transform;
+        laser.AddComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+        laser.GetComponent<RectTransform>().localPosition = new Vector3(0, laserOffsetY, 0);
+        laser.GetComponent<RectTransform>().localScale = new Vector3(5.0f, 0.1f, 1.0f);
+        laser.AddComponent<Image>().sprite = Resources.Load<Sprite>("Laser");
+        laser.GetComponent<Image>().preserveAspect = true;
+        laser.GetComponent<Image>().SetNativeSize();
+        laser.AddComponent<LaserGuid>();
+        laserOffsetY += 16;
     }
 }

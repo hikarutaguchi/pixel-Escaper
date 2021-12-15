@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface EnemyAttackInterface
 {
-    void Init();
+    void Init(GameObject weapon);
     void WeaponUpdate(GameObject weapon);
 }
