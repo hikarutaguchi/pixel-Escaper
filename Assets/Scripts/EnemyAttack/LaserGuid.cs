@@ -8,11 +8,17 @@ public class LaserGuid : MonoBehaviour
     float alfa = 0f;
     Color color;
     float red, green, blue;
+    bool isVertical = false;
 
     // Start is called before the first frame update
     void Start()
     {
         this.GetComponent<Image>().color = new Color(1.0f, 0.0f, 0.0f, alfa);
+    }
+
+    public void SetVertical(bool isVer)
+    {
+        isVertical = isVer;
     }
 
     // Update is called once per frame
@@ -21,7 +27,15 @@ public class LaserGuid : MonoBehaviour
         if(EndGuid() == true)
         {
             var manager = GameObject.Find("GameObject").GetComponent<EnemyAttackManager>();
-            manager.CreateLaser(this.transform.localPosition);
+            if(isVertical == false)
+            {
+                manager.CreateLaserX(this.transform.localPosition);
+            }
+            else
+            {
+                manager.CreateLaserY(this.transform.localPosition);
+            }
+           
             Destroy(this.gameObject);
         }
     }
