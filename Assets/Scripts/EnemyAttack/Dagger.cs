@@ -7,7 +7,7 @@ public class Dagger : MonoBehaviour, EnemyAttackInterface
 {
     WeaponData weaponData;
    
-    public void Init(GameObject weapon)
+    public void Init(GameObject weapon, bool isVer)
     {
         weaponData = Resources.Load("WeaponAsset/DaggerStatus") as WeaponData;
     }
