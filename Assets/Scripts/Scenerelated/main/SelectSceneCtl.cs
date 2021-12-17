@@ -1,14 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SelectSceneCtl : MonoBehaviour
 {
     public SceneWorkFlowManager manager;
+
+    [SerializeField]  Button button;
+
     // Start is called before the first frame update
     void Start()
     {
         GetComponent<Transition>().StartTransitionIn();
+        //ƒ{ƒ^ƒ“‚ª‘I‘ğ‚³‚ê‚½ó‘Ô‚É‚È‚é
+        button.Select();
     }
 
     // Update is called once per frame
@@ -23,4 +29,5 @@ public class SelectSceneCtl : MonoBehaviour
             manager.LoadGameScene();
         }
     }
+
 }
