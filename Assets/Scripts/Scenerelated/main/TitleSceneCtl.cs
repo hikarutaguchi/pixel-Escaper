@@ -5,7 +5,11 @@ using UnityEngine;
 public class TitleSceneCtl : MonoBehaviour
 {
     public SceneWorkFlowManager manager;
-    
+
+    [SerializeField] GameObject image;
+
+    float alpha_Sin;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +26,24 @@ public class TitleSceneCtl : MonoBehaviour
         if (GetComponent<Transition>().GetFinishFlag())
         {
             manager.LoadSelectScene();
+        }
+
+        alpha_Sin = Mathf.Sin(Time.time) / 2 + 0.5f;
+
+        StartCoroutine(ColorCoroutine());
+    }
+
+    IEnumerator ColorCoroutine()
+    {
+        while (true)
+        {
+            yield return new WaitForEndOfFrame();
+
+            Color _color = image.GetComponent<SpriteRenderer>().material.color;
+
+            _color.a = alpha_Sin;
+
+            image.GetComponent<SpriteRenderer>().material.color = _color;
         }
     }
 }
