@@ -4735,6 +4735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b02eaf940834824aaa52d7aee3bbf18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileMap: {fileID: 1593947535}
 --- !u!114 &1085208546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5783,7 +5784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d83d530df5a32824888a8b2f95920a19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileMap: {fileID: 0}
+  tileMap: {fileID: 1593947535}
 --- !u!4 &1640473041 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7509736641193634087, guid: a0a66c9b152e801409fc26c4ca493d18, type: 3}

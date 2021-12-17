@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Tilemaps;
 
 public class EnemyAttackTrigger : MonoBehaviour
 {
@@ -12,18 +13,21 @@ public class EnemyAttackTrigger : MonoBehaviour
         Laser,
     }
 
+    [SerializeField] private GameObject tileMap;
     EnemyAttackManager manager;
-    int attackCnt = 0;
     delegate bool RismAttack(AttackType type);
     List<RismAttack> attackList = new List<RismAttack>();
-    int laserOffsetY = 0;
-    int laserOffsetX = 0;
+    int attackCnt = 0;
+    float laserOffsetY = 0.0f;
+    float laserOffsetX = 0.0f;
     bool isVertical = false;
+    Vector3 startPos;
     
     // Start is called before the first frame update
     void Start()
     {
         Music.Play("Square");
+        LaserPosSet();
         attackList.Add(OneBeatsAttack);
         attackList.Add(ThreeBeatsAttack);
         attackList.Add(FourBeatsAttack);
@@ -49,6 +53,8 @@ public class EnemyAttackTrigger : MonoBehaviour
         {
             if(attackList[i](AttackType.Laser) == true)
             {
+                XYLaserSet();
+                LaserPosSet();
                 attackList.RemoveAt(i);
             }
         }
@@ -102,7 +108,6 @@ public class EnemyAttackTrigger : MonoBehaviour
             attackCnt = 0;
             laserOffsetX = 0;
             laserOffsetY = 0;
-            XYLaserSet();
             return true;
         }
         return false;
@@ -119,6 +124,18 @@ public class EnemyAttackTrigger : MonoBehaviour
         {
             isVertical = true;
         }
+    }
+
+    private void LaserPosSet()
+    {
+        var tilemap = tileMap.GetComponent<Tilemap>();
+        int x = Random.Range(-6, -1);
+        int y = Random.Range(-2, 3);
+        var position = new Vector3Int(x, y, 0);
+        startPos = tilemap.GetCellCenterLocal(position);
+        laserOffsetX = startPos.x;
+        laserOffsetY = startPos.y;
+        //startPos = new Vector3(tilemap.GetCellCenterLocal(position).x, tilemap.GetCellCenterLocal(position).y, 0);
     }
 
     private void CreateAttack()
@@ -141,7 +158,7 @@ public class EnemyAttackTrigger : MonoBehaviour
         Vector3 pos = new Vector3(0.0f, laserOffsetY, 0.0f);
         Vector3 scale = new Vector3(5.0f, 0.1f, 1.0f);
         LaserSetting(pos, scale);
-        laserOffsetY += 16;
+        laserOffsetY += 1.0f;
     }
 
     public void CreateLaserGuidY()
@@ -149,7 +166,7 @@ public class EnemyAttackTrigger : MonoBehaviour
         Vector3 pos = new Vector3(laserOffsetX, 0.0f, 0.0f);
         Vector3 scale = new Vector3(0.1f, 5.0f, 1.0f);
         LaserSetting(pos, scale);
-        laserOffsetX += 16;
+        laserOffsetX += 1.0f;
     }
 
     private void LaserSetting(Vector3 pos, Vector3 scale)
@@ -157,7 +174,7 @@ public class EnemyAttackTrigger : MonoBehaviour
         var laser = new GameObject("laserGuid");
         laser.transform.parent = GameObject.Find("Canvas").transform;
         laser.AddComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-        laser.GetComponent<RectTransform>().localPosition = new Vector3(pos.x, pos.y, 0.0f);
+        laser.GetComponent<RectTransform>().position = new Vector3(pos.x, pos.y, 0.0f);
         laser.GetComponent<RectTransform>().localScale = new Vector3(scale.x, scale.y, scale.z);
         laser.AddComponent<Image>().sprite = Resources.Load<Sprite>("Laser");
         laser.GetComponent<Image>().preserveAspect = true;
