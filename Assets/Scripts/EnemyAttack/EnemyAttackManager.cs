@@ -35,14 +35,14 @@ public class EnemyAttackManager : MonoBehaviour
 
     public void CreateLaserX(Vector3 pos)
     {
-        pos.x = 500.0f;
+        pos.x = 2000.0f;
         var scale = new Vector3(5.0f, 0.1f, 1.0f);
         LaserSetting(pos, scale, false);
     }
 
     public void CreateLaserY(Vector3 pos)
     {
-        pos.y = 500.0f;
+        pos.y = 2000.0f;
         var scale = new Vector3(0.1f, 5.0f, 1.0f);
         LaserSetting(pos, scale, true);
     }
@@ -56,7 +56,7 @@ public class EnemyAttackManager : MonoBehaviour
         //ç¿ïWÇ»Ç«ÇÃê›íË
         laser.AddComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         laser.GetComponent<RectTransform>().localPosition = new Vector3(pos.x, pos.y, 0);
-        laser.GetComponent<RectTransform>().localScale = new Vector3(scale.x, scale.y, scale.z);
+        laser.GetComponent<RectTransform>().localScale = new Vector3(scale.x * 5, scale.y * 5, scale.z);
         //âÊëúÇÃì«Ç›çûÇ›
         laser.AddComponent<Image>().sprite = Resources.Load<Sprite>("Weapon/Laser");
         laser.GetComponent<Image>().preserveAspect = true;

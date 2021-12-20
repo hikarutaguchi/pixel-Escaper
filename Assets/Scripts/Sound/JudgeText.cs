@@ -10,7 +10,7 @@ public class JudgeText : MonoBehaviour
 
     private void Awake()
     {
-        timing_ = GameObject.Find("Dino").GetComponent<playerController>().timing;
+        //timing_ = GameObject.Find("Dino").GetComponent<playerController>().timing;
         text_ = this.GetComponent<Text>();
     }
 
@@ -23,7 +23,7 @@ public class JudgeText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timing_ = GameObject.Find("Dino").GetComponent<playerController>().timing;
+       // timing_ = GameObject.Find("Dino").GetComponent<playerController>().timing;
         text_.text = timing_;
     }
 }

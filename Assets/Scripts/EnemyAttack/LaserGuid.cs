@@ -26,7 +26,7 @@ public class LaserGuid : MonoBehaviour
     {
         if(EndGuid() == true)
         {
-            var manager = GameObject.Find("GameObject").GetComponent<EnemyAttackManager>();
+            var manager = GameObject.Find("GameScene").GetComponent<EnemyAttackManager>();
             if(isVertical == false)
             {
                 manager.CreateLaserX(this.transform.localPosition);

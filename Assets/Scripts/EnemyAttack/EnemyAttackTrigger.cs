@@ -26,6 +26,7 @@ public class EnemyAttackTrigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Music.Play("BGM");
         Music.Play("Square");
         //レーザーの初期座標をセット
         LaserPosSet();
@@ -57,6 +58,22 @@ public class EnemyAttackTrigger : MonoBehaviour
                 XYLaserSet();
                 LaserPosSet();
                 attackList.RemoveAt(i);
+            }
+        }
+        if (attackList.Count == 0)
+        {
+            int ram = Random.Range(1, 4);
+            switch (ram)
+            {
+                case 1:
+                    AddOneAttack();
+                    break;
+                case 2:
+                    AddThreeAttack();
+                    break;
+                case 3:
+                    AddFourAttack();
+                    break;
             }
         }
     }
@@ -177,7 +194,7 @@ public class EnemyAttackTrigger : MonoBehaviour
         laser.transform.parent = GameObject.Find("Canvas").transform;
         laser.AddComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         laser.GetComponent<RectTransform>().position = new Vector3(pos.x, pos.y, 0.0f);
-        laser.GetComponent<RectTransform>().localScale = new Vector3(scale.x, scale.y, scale.z);
+        laser.GetComponent<RectTransform>().localScale = new Vector3(scale.x * 5, scale.y * 5, scale.z);
         laser.AddComponent<Image>().sprite = Resources.Load<Sprite>("Laser");
         laser.GetComponent<Image>().preserveAspect = true;
         laser.GetComponent<Image>().SetNativeSize();
