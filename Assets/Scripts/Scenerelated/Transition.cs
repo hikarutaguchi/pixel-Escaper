@@ -9,6 +9,7 @@ public class Transition : MonoBehaviour
     private Material _transition;
     public Image _fadeImage;
     private bool _finishFlag = false;
+    private bool _startFlag = false;
     public void StartTransitionIn()
     {
         StartCoroutine(TransitionIn());
@@ -30,6 +31,7 @@ public class Transition : MonoBehaviour
             current += Time.deltaTime;
         }
         material.SetFloat("_Alpha", 0);
+        _startFlag = true;
     }
 
     public void StartTransitionOut()
@@ -55,4 +57,5 @@ public class Transition : MonoBehaviour
     }
 
     public bool GetFinishFlag() { return _finishFlag; }
+    public bool GetStartFinishFlag() { return _startFlag; }
 }

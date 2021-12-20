@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameSceneCtl : MonoBehaviour
 {
     public SceneWorkFlowManager manager;
     bool _clearFlag = false;
+    [SerializeField] GameObject timer;
+
+    private bool nextScene = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,8 +20,14 @@ public class GameSceneCtl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if(GetComponent<Transition>().GetStartFinishFlag())
         {
+            timer.GetComponent<Timer>().timerFlag = true;
+        }
+
+        if (timer.GetComponent<Timer>().gameclearFlag && !nextScene)
+        {
+            nextScene = true;
             GetComponent<Transition>().StartTransitionOut();
         }
         if (GetComponent<Transition>().GetFinishFlag())
