@@ -14,7 +14,7 @@ public class TestScene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        manager = GameObject.Find("GameObject").GetComponent<EnemyAttackManager>();
+        manager = GameObject.Find("GameScene").GetComponent<EnemyAttackManager>();
         manager.ManagedUpdate();
     }
 }

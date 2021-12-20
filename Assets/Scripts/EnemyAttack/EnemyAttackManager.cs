@@ -49,14 +49,28 @@ public class EnemyAttackManager : MonoBehaviour
 
     private void LaserSetting(Vector3 pos, Vector3 scale, bool isVertical)
     {
+        //レーザーの生成
         var laser = new GameObject("laserImage");
+        //Canvasに親子付け
         laser.transform.parent = GameObject.Find("Canvas").transform;
+        //座標などの設定
         laser.AddComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         laser.GetComponent<RectTransform>().localPosition = new Vector3(pos.x, pos.y, 0);
         laser.GetComponent<RectTransform>().localScale = new Vector3(scale.x, scale.y, scale.z);
+        //画像の読み込み
         laser.AddComponent<Image>().sprite = Resources.Load<Sprite>("Weapon/Laser");
         laser.GetComponent<Image>().preserveAspect = true;
         laser.GetComponent<Image>().SetNativeSize();
+        //当たり判定
+        BoxCollider2D hitbox = laser.AddComponent<BoxCollider2D>();
+        hitbox.size = new Vector2(100, 100);
+        hitbox.isTrigger = true;
+
+        Rigidbody2D rigidbody = laser.AddComponent<Rigidbody2D>();
+        rigidbody.bodyType = RigidbodyType2D.Dynamic;
+        rigidbody.simulated = true;
+        rigidbody.gravityScale = 0.0f;
+        //レーザースクリプトをADD
         laser.AddComponent<Laser>();
         laser.GetComponent<Laser>().Init(laser, isVertical);
 
@@ -67,14 +81,25 @@ public class EnemyAttackManager : MonoBehaviour
     {
         if(weapon != null)
         {
-            foreach(var data in weapon)
+            foreach(var data in weapon.ToArray())
             {
-                var weaponTarget = data.GetComponent<EnemyAttackInterface>();
-                if (weaponTarget != null)
+                if(data != null)
                 {
-                    data.GetComponent<EnemyAttackInterface>().WeaponUpdate(data);
+                    var weaponTarget = data.GetComponent<EnemyAttackInterface>();
+                    if (weaponTarget != null)
+                    {
+                        data.GetComponent<EnemyAttackInterface>().WeaponUpdate(data);
+                    }
                 }
             }
+        }
+    }
+
+    public void DeleteObject(GameObject obj)
+    {
+        if(weapon.Contains(obj))
+        {
+            weapon.Remove(obj);
         }
     }
 }

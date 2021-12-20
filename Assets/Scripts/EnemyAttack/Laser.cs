@@ -24,5 +24,12 @@ public class Laser : MonoBehaviour, EnemyAttackInterface
         {
             weapon.transform.localPosition -= new Vector3(0.0f, weaponData.speed, 0.0f);
         }
+
+        if((weapon.transform.localPosition.x <= -500)||(weapon.transform.localPosition.y <= -500))
+        {
+            var manager = GameObject.Find("GameScene").GetComponent<EnemyAttackManager>();
+            manager.DeleteObject(weapon);
+            Destroy(weapon);
+        }
     }
 }

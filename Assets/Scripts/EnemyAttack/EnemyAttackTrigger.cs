@@ -14,19 +14,20 @@ public class EnemyAttackTrigger : MonoBehaviour
     }
 
     [SerializeField] private GameObject tileMap;
-    EnemyAttackManager manager;
-    delegate bool RismAttack(AttackType type);
-    List<RismAttack> attackList = new List<RismAttack>();
-    int attackCnt = 0;
-    float laserOffsetY = 0.0f;
-    float laserOffsetX = 0.0f;
-    bool isVertical = false;
-    Vector3 startPos;
+    EnemyAttackManager manager;//敵攻撃の管理変数
+    delegate bool RismAttack(AttackType type);//リズム攻撃
+    List<RismAttack> attackList = new List<RismAttack>();//リズム攻撃の関数ポインタのリスト
+    int attackCnt = 0;//攻撃回数
+    float laserOffsetX = 0.0f;//レーザー初期座標のオフセット
+    float laserOffsetY = 0.0f;//レーザー初期座標のオフセット
+    bool isVertical = false;//縦方向かどうかのフラグ
+    Vector3 startPos;//初期座標
     
     // Start is called before the first frame update
     void Start()
     {
         Music.Play("Square");
+        //レーザーの初期座標をセット
         LaserPosSet();
         attackList.Add(OneBeatsAttack);
         attackList.Add(ThreeBeatsAttack);
@@ -103,6 +104,7 @@ public class EnemyAttackTrigger : MonoBehaviour
 
     private bool isAttacked(int atkCnt)
     {
+        //攻撃回数が規定の値に到達したか
         if (atkCnt == attackCnt)
         {
             attackCnt = 0;
@@ -115,6 +117,7 @@ public class EnemyAttackTrigger : MonoBehaviour
     
     private void XYLaserSet()
     {
+        //縦方向か横方向か
         int val = Random.Range(0, 2);
         if (val == 0)
         {
@@ -129,18 +132,17 @@ public class EnemyAttackTrigger : MonoBehaviour
     private void LaserPosSet()
     {
         var tilemap = tileMap.GetComponent<Tilemap>();
-        int x = Random.Range(-6, -1);
-        int y = Random.Range(-2, 3);
+        int x = Random.Range(-5, -2);
+        int y = Random.Range(-1, 2);
         var position = new Vector3Int(x, y, 0);
         startPos = tilemap.GetCellCenterLocal(position);
         laserOffsetX = startPos.x;
         laserOffsetY = startPos.y;
-        //startPos = new Vector3(tilemap.GetCellCenterLocal(position).x, tilemap.GetCellCenterLocal(position).y, 0);
     }
 
     private void CreateAttack()
     {
-        manager = GameObject.Find("GameObject").GetComponent<EnemyAttackManager>();
+        manager = GameObject.Find("GameScene").GetComponent<EnemyAttackManager>();
         //manager.CreateDagger();
         if(isVertical == false)
         {
