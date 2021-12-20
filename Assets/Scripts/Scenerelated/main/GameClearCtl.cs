@@ -20,7 +20,7 @@ public class GameClearCtl : MonoBehaviour
         }
         if (GetComponent<Transition>().GetFinishFlag())
         {
-            manager.LoadTitleScene();
+            manager.LoadSelectScene();
         }
     }
 }
