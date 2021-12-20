@@ -19,7 +19,12 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(timerFlag)
+        if (Mathf.Approximately(Time.timeScale, 0f))
+        {
+            return;
+        }
+
+        if (timerFlag)
         {
             // countTime‚ÉAƒQ[ƒ€‚ªŠJn‚µ‚Ä‚©‚ç‚Ì•b”‚ğŠi”[
             countTime -= Time.deltaTime;
