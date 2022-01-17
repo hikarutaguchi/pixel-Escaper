@@ -9,7 +9,7 @@ public class EnemyAttackTrigger : MonoBehaviour
 {
     private enum AttackType
     {
-        Dagger,
+        FireBall,
         Laser,
     }
 
@@ -21,8 +21,10 @@ public class EnemyAttackTrigger : MonoBehaviour
     float laserOffsetX = 0.0f;//レーザー初期座標のオフセット
     float laserOffsetY = 0.0f;//レーザー初期座標のオフセット
     bool isVertical = false;//縦方向かどうかのフラグ
-    Vector3 startPos;//初期座標
-    
+    Vector3 laserStartPos;//初期座標
+    Vector3 fireStartPos;//初期座標
+    AttackType atkType = AttackType.Laser;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +32,8 @@ public class EnemyAttackTrigger : MonoBehaviour
         Music.Play("Square");
         //レーザーの初期座標をセット
         LaserPosSet();
+        FireBallPosSet();
+        AttackTypeSetting();
         attackList.Add(OneBeatsAttack);
         attackList.Add(ThreeBeatsAttack);
         attackList.Add(FourBeatsAttack);
@@ -53,10 +57,12 @@ public class EnemyAttackTrigger : MonoBehaviour
     {
         for(int i = 0; i < attackList.Count; ++i)
         {
-            if(attackList[i](AttackType.Laser) == true)
+            if (attackList[i](atkType) == true)
             {
-                XYLaserSet();
+                VerticalSetting();
                 LaserPosSet();
+                FireBallPosSet();
+                AttackTypeSetting();
                 attackList.RemoveAt(i);
             }
         }
@@ -83,7 +89,7 @@ public class EnemyAttackTrigger : MonoBehaviour
         int atkCnt = 1;
         if (Music.IsJustChangedAt(1, 0, 1))
         {
-            CreateAttack();
+            CreateAttack(type);
         }
         return isAttacked(atkCnt);
     }
@@ -93,15 +99,15 @@ public class EnemyAttackTrigger : MonoBehaviour
         int atkCnt = 3;
         if (Music.IsJustChangedAt(1, 1, 1))
         {
-            CreateAttack();
+            CreateAttack(type);
         }
         if (Music.IsJustChangedAt(1, 3, 0))
         {
-            CreateAttack();
+            CreateAttack(type);
         }
         if (Music.IsJustChangedAt(1, 3, 3))
         {
-            CreateAttack();
+            CreateAttack(type);
         }
         return isAttacked(atkCnt);
     }
@@ -113,7 +119,7 @@ public class EnemyAttackTrigger : MonoBehaviour
         {
             if (Music.IsJustChangedAt(3, i, 1))
             {
-                CreateAttack();
+                CreateAttack(type);
             }
         }
         return isAttacked(atkCnt);
@@ -132,7 +138,7 @@ public class EnemyAttackTrigger : MonoBehaviour
         return false;
     }
     
-    private void XYLaserSet()
+    private void VerticalSetting()
     {
         //縦方向か横方向か
         int val = Random.Range(0, 2);
@@ -146,29 +152,69 @@ public class EnemyAttackTrigger : MonoBehaviour
         }
     }
 
+    private void AttackTypeSetting()
+    {
+        //縦方向か横方向か
+        int val = Random.Range(0, 2);
+        if (val == 0)
+        {
+            atkType = AttackType.FireBall;
+        }
+        else
+        {
+            atkType = AttackType.Laser;
+        }
+    }
+
     private void LaserPosSet()
     {
         var tilemap = tileMap.GetComponent<Tilemap>();
         int x = Random.Range(-5, -2);
         int y = Random.Range(-1, 2);
         var position = new Vector3Int(x, y, 0);
-        startPos = tilemap.GetCellCenterLocal(position);
-        laserOffsetX = startPos.x;
-        laserOffsetY = startPos.y;
+        laserStartPos = tilemap.GetCellCenterLocal(position);
+        laserOffsetX = laserStartPos.x;
+        laserOffsetY = laserStartPos.y;
     }
 
-    private void CreateAttack()
+    private void FireBallPosSet()
+    {
+        var tilemap = tileMap.GetComponent<Tilemap>();
+        int x = Random.Range(-6, -1);
+        int y = Random.Range(-2, 3);
+        var position = new Vector3Int(x, y, 0);
+        fireStartPos = tilemap.GetCellCenterLocal(position);
+    }
+
+    private void CreateAttack(AttackType type)
     {
         manager = GameObject.Find("GameScene").GetComponent<EnemyAttackManager>();
-        //manager.CreateDagger();
-        if(isVertical == false)
+        FireBallPosSet();
+        switch (type)
         {
-            CreateLaserGuidX();
+        case AttackType.FireBall:
+            if (isVertical == false)
+            {
+                manager.CreateFireBallX(fireStartPos);
+            }
+            else
+            {
+                manager.CreateFireBallY(fireStartPos);
+            }
+            break;
+        case AttackType.Laser:
+            if (isVertical == false)
+            {
+                CreateLaserGuidX();
+            }
+            else
+            {
+                CreateLaserGuidY();
+            }
+            break;
         }
-        else
-        {
-            CreateLaserGuidY();
-        }
+
+        
         attackCnt++;
     }
 
@@ -194,7 +240,7 @@ public class EnemyAttackTrigger : MonoBehaviour
         laser.transform.parent = GameObject.Find("Canvas").transform;
         laser.AddComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         laser.GetComponent<RectTransform>().position = new Vector3(pos.x, pos.y, 0.0f);
-        laser.GetComponent<RectTransform>().localScale = new Vector3(scale.x * 5, scale.y * 5, scale.z);
+        laser.GetComponent<RectTransform>().localScale = new Vector3(scale.x, scale.y, scale.z);
         laser.AddComponent<Image>().sprite = Resources.Load<Sprite>("Laser");
         laser.GetComponent<Image>().preserveAspect = true;
         laser.GetComponent<Image>().SetNativeSize();

@@ -18,19 +18,46 @@ public class EnemyAttackManager : MonoBehaviour
         
     }
 
-    public void CreateDagger()
+    public void CreateFireBall(Vector3 pos, bool isVertical)
     {
-        var dagger = new GameObject("daggerImage");
-        dagger.transform.parent = GameObject.Find("Canvas").transform;
-        dagger.AddComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-        dagger.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
-        dagger.AddComponent<Image>().sprite = Resources.Load<Sprite>("Weapon/dagger");
-        dagger.GetComponent<Image>().preserveAspect = true;
-        dagger.GetComponent<Image>().SetNativeSize();
-        dagger.AddComponent<Dagger>();
-        dagger.GetComponent<Dagger>().Init(dagger, false);
+        //ファイアーボールの生成
+        var fireBall = new GameObject("fireImage");
+        //Canvasに親子付け
+        fireBall.transform.parent = GameObject.Find("Canvas").transform;
+        //座標などの設定
+        fireBall.AddComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+        fireBall.GetComponent<RectTransform>().position = new Vector3(pos.x, pos.y, 0);
+        fireBall.GetComponent<RectTransform>().localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        //画像の読み込み
+        fireBall.AddComponent<Image>().sprite = Resources.Load<Sprite>("Weapon/fireBall");
+        fireBall.GetComponent<Image>().preserveAspect = true;
+        fireBall.GetComponent<Image>().SetNativeSize();
+        //当たり判定
+        BoxCollider2D hitbox = fireBall.AddComponent<BoxCollider2D>();
+        hitbox.size = new Vector2(32, 32);
+        hitbox.isTrigger = true;
 
-        weapon.Add(dagger);
+        Rigidbody2D rigidbody = fireBall.AddComponent<Rigidbody2D>();
+        rigidbody.bodyType = RigidbodyType2D.Dynamic;
+        rigidbody.simulated = true;
+        rigidbody.gravityScale = 0.0f;
+        //ファイアーボールスクリプトの追加
+        fireBall.AddComponent<FireBall>();
+        fireBall.GetComponent<FireBall>().Init(fireBall, isVertical);
+
+        weapon.Add(fireBall);
+    }
+
+    public void CreateFireBallX(Vector3 pos)
+    {
+        pos.x = 12.0f;
+        CreateFireBall(pos, false);
+    }
+
+    public void CreateFireBallY(Vector3 pos)
+    {
+        pos.y = 10.0f;
+        CreateFireBall(pos, true);
     }
 
     public void CreateLaserX(Vector3 pos)
@@ -56,7 +83,7 @@ public class EnemyAttackManager : MonoBehaviour
         //座標などの設定
         laser.AddComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         laser.GetComponent<RectTransform>().localPosition = new Vector3(pos.x, pos.y, 0);
-        laser.GetComponent<RectTransform>().localScale = new Vector3(scale.x * 5, scale.y * 5, scale.z);
+        laser.GetComponent<RectTransform>().localScale = new Vector3(scale.x, scale.y, scale.z);
         //画像の読み込み
         laser.AddComponent<Image>().sprite = Resources.Load<Sprite>("Weapon/Laser");
         laser.GetComponent<Image>().preserveAspect = true;
@@ -70,7 +97,7 @@ public class EnemyAttackManager : MonoBehaviour
         rigidbody.bodyType = RigidbodyType2D.Dynamic;
         rigidbody.simulated = true;
         rigidbody.gravityScale = 0.0f;
-        //レーザースクリプトをADD
+        //レーザースクリプトを追加
         laser.AddComponent<Laser>();
         laser.GetComponent<Laser>().Init(laser, isVertical);
 

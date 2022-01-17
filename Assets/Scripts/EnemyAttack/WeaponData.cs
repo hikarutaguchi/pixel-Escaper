@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "MyScriptTable/Create EnemyWeapon")]
 public class WeaponData : ScriptableObject
 {
-    public int speed;
+    public float speed;
 }
