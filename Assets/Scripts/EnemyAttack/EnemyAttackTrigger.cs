@@ -240,7 +240,7 @@ public class EnemyAttackTrigger : MonoBehaviour
         laser.transform.parent = GameObject.Find("Canvas").transform;
         laser.AddComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         laser.GetComponent<RectTransform>().position = new Vector3(pos.x, pos.y, 0.0f);
-        laser.GetComponent<RectTransform>().localScale = new Vector3(scale.x, scale.y, scale.z);
+        laser.GetComponent<RectTransform>().localScale = new Vector3(scale.x * 5, scale.y * 5, scale.z);
         laser.AddComponent<Image>().sprite = Resources.Load<Sprite>("Laser");
         laser.GetComponent<Image>().preserveAspect = true;
         laser.GetComponent<Image>().SetNativeSize();

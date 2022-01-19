@@ -27,7 +27,7 @@ public class EnemyAttackManager : MonoBehaviour
         //ç¿ïWÇ»Ç«ÇÃê›íË
         fireBall.AddComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         fireBall.GetComponent<RectTransform>().position = new Vector3(pos.x, pos.y, 0);
-        fireBall.GetComponent<RectTransform>().localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        fireBall.GetComponent<RectTransform>().localScale = new Vector3(3.0f, 3.0f, 3.0f);
         //âÊëúÇÃì«Ç›çûÇ›
         fireBall.AddComponent<Image>().sprite = Resources.Load<Sprite>("Weapon/fireBall");
         fireBall.GetComponent<Image>().preserveAspect = true;
@@ -56,7 +56,7 @@ public class EnemyAttackManager : MonoBehaviour
 
     public void CreateFireBallY(Vector3 pos)
     {
-        pos.y = 10.0f;
+        pos.y = 9.0f;
         CreateFireBall(pos, true);
     }
 
@@ -83,7 +83,7 @@ public class EnemyAttackManager : MonoBehaviour
         //ç¿ïWÇ»Ç«ÇÃê›íË
         laser.AddComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         laser.GetComponent<RectTransform>().localPosition = new Vector3(pos.x, pos.y, 0);
-        laser.GetComponent<RectTransform>().localScale = new Vector3(scale.x, scale.y, scale.z);
+        laser.GetComponent<RectTransform>().localScale = new Vector3(scale.x * 5, scale.y * 5, scale.z);
         //âÊëúÇÃì«Ç›çûÇ›
         laser.AddComponent<Image>().sprite = Resources.Load<Sprite>("Weapon/Laser");
         laser.GetComponent<Image>().preserveAspect = true;

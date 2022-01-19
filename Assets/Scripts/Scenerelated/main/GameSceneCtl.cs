@@ -34,5 +34,10 @@ public class GameSceneCtl : MonoBehaviour
         {
             manager.LoadGameClearScene();
         }
+        var scene = GameObject.Find("GameScene").GetComponent<TestScene>();
+        if(scene.IsPlayerLife() == true)
+        {
+            manager.LoadGameOverScene();
+        }
     }
 }

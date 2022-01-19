@@ -15,7 +15,7 @@ public class GameOverPop : MonoBehaviour
     {
         if (transform.localPosition.y >= 257)
         {
-            transform.localPosition -= new Vector3(0, 50 * Time.deltaTime);
+            transform.localPosition -= new Vector3(0, 65 * Time.deltaTime);
         }
         else
         {

@@ -25,7 +25,7 @@ public class FireBall : MonoBehaviour, EnemyAttackInterface
             weapon.transform.localPosition -= new Vector3(0.0f, weaponData.speed, 0.0f);
         }
 
-        if ((weapon.transform.localPosition.x <= -200) || (weapon.transform.localPosition.y <= -200))
+        if ((weapon.transform.localPosition.x <= -1200) || (weapon.transform.localPosition.y <= -1000))
         {
             var manager = GameObject.Find("GameScene").GetComponent<EnemyAttackManager>();
             manager.DeleteObject(weapon);
