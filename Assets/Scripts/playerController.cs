@@ -127,4 +127,16 @@ public class playerController : MonoBehaviour
 	{
 		transform.position = Vector3.MoveTowards(transform.position, target, step * Time.deltaTime);
 	}
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+		collision.gameObject.SetActive(false);
+		var manager = GameObject.Find("GameScene").GetComponent<EnemyAttackManager>();
+		manager.DeleteObject(collision.gameObject);
+		Destroy(collision.gameObject);
+
+		var scene = GameObject.Find("GameScene").GetComponent<TestScene>();
+		scene.PlayerDamage();
+		Debug.Log("ìñÇΩÇ¡ÇΩÇÊÅ[Å[");
+    }
 }

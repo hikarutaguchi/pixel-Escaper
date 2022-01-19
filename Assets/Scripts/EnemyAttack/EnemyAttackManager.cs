@@ -34,7 +34,7 @@ public class EnemyAttackManager : MonoBehaviour
         fireBall.GetComponent<Image>().SetNativeSize();
         //“–‚½‚è”»’è
         BoxCollider2D hitbox = fireBall.AddComponent<BoxCollider2D>();
-        hitbox.size = new Vector2(32, 32);
+        hitbox.size = new Vector2(30, 30);
         hitbox.isTrigger = true;
 
         Rigidbody2D rigidbody = fireBall.AddComponent<Rigidbody2D>();
