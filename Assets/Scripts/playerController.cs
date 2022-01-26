@@ -109,8 +109,17 @@ public class playerController : MonoBehaviour
 		{
 			dpushFlag = false;
 		}
-		if(target.x > -1 || target.x < -6 || target.y > 3 || target.y < -2)
+
+        if (target.x > -1 || target.x < -6 || target.y > 3 || target.y < -2)
         {
+			target = prevPos;
+		}
+
+		var stage = GameObject.Find("stage").GetComponent<Stage>();
+		var tilemap = tileMap.GetComponent<Tilemap>();
+		var checkPos = target;
+		if (stage.IsMove(tilemap.WorldToCell(checkPos)) == false)
+		{
 			target = prevPos;
 		}
 	}

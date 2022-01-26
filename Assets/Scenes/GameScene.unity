@@ -7408,6 +7408,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2067557543}
   - component: {fileID: 2067557542}
+  - component: {fileID: 2067557544}
   m_Layer: 5
   m_Name: stage
   m_TagString: Untagged
@@ -7447,6 +7448,19 @@ Transform:
   m_Father: {fileID: 838362110}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2067557544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2067557541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec2d4a89bb86777448ed4964de491c7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileMap: {fileID: 1716196860}
 --- !u!1 &2120814962
 GameObject:
   m_ObjectHideFlags: 0
