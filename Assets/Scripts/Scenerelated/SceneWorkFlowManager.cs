@@ -10,6 +10,9 @@ using UnityEngine.SceneManagement;
 [CreateAssetMenu(fileName = "SceneManager", menuName = "SceneScript/SceneManager")]
 public class SceneWorkFlowManager : ScriptableObject
 {
+    /// <summary>
+    /// シーンのロードとアンロードを行う
+    /// </summary>
     public List<SceneParameter> _scenes = new List<SceneParameter>();
 
     public void LoadGameScene()
